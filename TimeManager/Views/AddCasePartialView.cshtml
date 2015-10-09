@@ -1,0 +1,90 @@
+﻿@using System.Web.Services.Configuration
+@using ModelBinderDictionary = System.Web.ModelBinding.ModelBinderDictionary
+@model TimeManager.Models.TimeManagerModel
+@{var NewCase = Model.NewCase;}
+<div class="well add-case-well">
+    <div class="panel-heading well-header">
+        Додати справу
+    </div>
+    <div class="panel-body add-case-body">
+        <form class="form-horizontal" method="POST" action="/Home/Index">
+            @if (!Html.ValidationSummary().ToString().Contains("display:none"))
+                {
+                <div class="alert alert-danger">
+                    @Html.ValidationSummary()
+                </div>
+                }
+            <div class="form-group add-case-group">
+                <input type="text" class="form-control" name="ShortDescription" placeholder="Короткий опис" value="@NewCase.ShortDescription">
+            </div>
+            <div class="form-group add-case-group">
+                <textarea class="form-control" rows="5" name="Description" placeholder="Опис" style="max-width: 251px;">@NewCase.Description</textarea>
+            </div>
+            <div class="form-group add-case-group">
+                <div class='input-group date' id='datetimepickerStart'>
+                    <input type='text' name="StartDate" placeholder="Початкова дата та час" class="form-control" value="@NewCase.StartDate.ToString("dd/MM/yyyy")"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group add-case-group">
+                <div class='input-group date' id='datetimepickerEnd'>
+                    <input type='text' name="EndDate" placeholder="Кінцева дата та час" class="form-control" value="@NewCase.EndDate"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group add-case-group" id="category-group">
+                <div class="input-group">
+                    <select class="form-control" name="CategoryName" id="category" title="Оберіть категорію" value="Категорія">
+                        <option value="" selected disabled style='display: none;'>&lt;Категорія&gt;</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            if (category.Name == Model.NewCase.CategoryName)
+                            {
+                                <option selected>@category.Name</option>
+                            }
+                            else
+                            {
+                                <option>@category.Name</option>
+                            }
+                        }
+                    </select>
+                    <span class="input-group-btn">
+                        <button id="add-category-button" class="btn btn-default attached-button" type="button" onclick="showdiv('#new-category'); hidediv('#category-group');">+</button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group add-case-group" id="new-category" style="display: none;">
+                <div class="input-group">
+                    <input type="text" name="CategoryName" class="form-control" placeholder="Введіть назву нової категорії"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default attached-button" type="button" onclick="hidediv('#new-category'); showdiv('#category-group')">-</button>
+                    </span>
+                </div>
+
+            </div>
+            <div class="form-group add-case-group">
+                <select class="form-control" id="priority" Name="Priority" title="Chose priority">
+                    <option value="" selected disabled style='display: none;'>&lt;Пріоритет&gt;</option>
+                    @foreach (var priority in Model.Priorities)
+                    {
+                        if (priority == Model.NewCase.Priority)
+                        {
+                            <option selected>@priority</option>
+                        }
+                        else
+                        {
+                            <option>@priority</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group add-case-group">
+                <button type="submit" class="btn btn-info form-control">Додати</button>
+            </div>
+        </form>
+    </div>
+</div>

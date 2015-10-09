@@ -1,0 +1,59 @@
+.block {
+	background: #ccc;
+	border: 1px solid #000;
+}
+
+.authorization-group, .add-case-group {
+	margin: 5px;
+}
+
+.authorization-well, .add-case-well, .user-well {
+	padding: 5px;
+}
+
+.well-header {
+	background-color: #D9EDF7;
+	border-bottom: 1px solid #31708F;
+	color: #31708F;
+	font-size: 14pt;
+	margin-bottom: 10px;
+}
+
+.authorization-footer {
+	padding: 0px;
+}
+
+.add-case-body {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.attached-button {
+	width: 40px;
+	background-color: #eee;
+	font-weight: bold;
+}
+
+td .checkbox {
+	margin: 0;
+}
+
+.header {
+	padding: 0 10px 0 10px;
+	border-top: 1px dashed #aaa;
+	border-bottom: 1px dashed #aaa;
+	margin-bottom: 10px;
+	background-color: #D9EDF7;
+}
+
+.header h1 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.nv {
+	margin-top:20px;
+	border-top: 1px solid #e7e7e7;
+	border-bottom: 1px solid #e7e7e7;
+}
+

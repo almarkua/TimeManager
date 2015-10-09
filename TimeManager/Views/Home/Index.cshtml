@@ -1,0 +1,95 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model TimeManager.Models.TimeManagerModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 well">
+            <h4>Сьогоднішні справи:</h4>
+            <table class="table">
+                <tr style="background-color: #EED2EE;">
+                    <th>#</th>
+                    <th>Короткий опис</th>
+                    <th>Кінцева дата та час</th>
+                    <th>Категорія</th>
+                    <th>Пріоритет</th>
+                    <th>Готовність</th>
+                </tr>
+                
+                @for (int i = 0; i < @Model.Cases.Count; i++)
+                {
+                    var item = @Model.Cases[i];
+                    <tr @if (i % 2 != 0) { <text> class="info" </text>  }>
+                        <td>@(i + 1)</td>
+                        <td>@item.ShortDescription</td>
+                        <td>@item.EndDate.ToShortDateString()</td>
+                        <td>@item.Category.Name</td>
+                        <td>@item.Priority</td>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    @if (item.IsDone)
+                                    {
+                                        <input type="checkbox" checked="checked">
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox">
+                                    }
+                                    Виконана
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <h4>Майбутні справи:</h4>
+            <table class="table">
+                <tr style="background-color: #EED2EE;">
+                    <th>#</th>
+                    <th>Короткий опис</th>
+                    <th>Кінцева дата та час</th>
+                    <th>Категорія</th>
+                    <th>Пріоритет</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Hello</td>
+                    <td>12.12.15</td>
+                    <td>12323</td>
+                    <td>1</td>
+                </tr>
+                <tr class="info">
+                    <td>2</td>
+                    <td>Hello</td>
+                    <td>12.12.15</td>
+                    <td>12323</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Hello</td>
+                    <td>12.12.15</td>
+                    <td>12323</td>
+                    <td>3</td>
+                </tr>
+                <tr class="info">
+                    <td>4</td>
+                    <td>Hello</td>
+                    <td>12.12.15</td>
+                    <td>12323</td>
+                    <td>4</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3">
+            @Html.Partial("~/Views/UserLoginPartialView.cshtml")
+            @Html.Partial("~/Views/AddCasePartialView.cshtml", @Model)
+        </div>
+    </div>
+</div>
+
+
+
