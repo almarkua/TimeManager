@@ -12,6 +12,8 @@ namespace TimeManager.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            var users = MainRepository.Users;
+
             var model = new TimeManagerModel();
             return View(model);
         }
@@ -52,7 +54,7 @@ namespace TimeManager.Controllers
         [HttpGet]
         public ActionResult Users()
         {
-            UsersR.AddUser(new User()
+            MainRepository.AddUser(new User()
             {
                 Name = "User",
                 AboutMe = "About Me",
@@ -60,7 +62,7 @@ namespace TimeManager.Controllers
                 Password = "password",
                 UserImage = "mimi.jpg"
             });
-            return View(UsersR.Users);
+            return View(MainRepository.Users);
         }
     }
 }

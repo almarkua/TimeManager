@@ -8,8 +8,10 @@ namespace TimeManager.Models
 {
     public interface IRepository
     {
-        List<User> Users { get; }
+        IList<User> Users { get; }
+        IList<PublicCategory> PublicCategories { get; }
         void AddUser(User newUser);
         void RemoveUser(User user);
+        void AddPublicCategory(PublicCategory category);
     }
 }

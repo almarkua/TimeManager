@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Web;
 
 namespace TimeManager.Models
 {
-    public class Category:ICategory
+    public class PublicCategory:ICategory
     {
-        public int CategoryId { get; set; }
+        public int PublicCategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         
-        public virtual User User { get; set; }
-        public virtual IList<Case> Cases { get; set; }    
-        
+        public virtual IList<Case> Cases { get; set; }
+        public virtual IList<User> Users { get; set; }
+
         public int CompareTo(ICategory other)
         {
             if (other != null)
@@ -25,10 +25,10 @@ namespace TimeManager.Models
 
         public override bool Equals(object obj)
         {
-            var category = obj as Category;
-            if (category != null)
+            ICategory tmp = obj as ICategory;
+            if (tmp != null)
             {
-                return Name.Equals(category.Name);
+                return Name.Equals(tmp.Name, StringComparison.CurrentCulture);
             }
             return false;
         }

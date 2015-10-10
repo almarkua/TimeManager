@@ -11,6 +11,6 @@ namespace TimeManager.Controllers
     public class BaseController : Controller
     {
         [Inject]
-        public IRepository UsersR { get; set; }
+        public IRepository MainRepository { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TimeManager.Models
 {
@@ -15,6 +17,7 @@ namespace TimeManager.Models
         public string Email { get; set; }
         public string AboutMe { get; set; }
 
-        public virtual IList<Category> Categories { get; set; }
+        public virtual IList<Category> PrivateCategories { get; set; }
+        public virtual IList<PublicCategory> PublicCategories { get; set; }
     }
 }
