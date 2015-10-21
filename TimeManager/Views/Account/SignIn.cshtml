@@ -1,0 +1,34 @@
+﻿@model TimeManager.Models.LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    @using (@Html.BeginForm("SignIn", "Account", new {ReturnUrl=ViewBag.ReturnUrl}, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        if (Html.ValidationMessage("errorMessage").ToString().Contains("field-validation-error"))
+        {
+            <div class="alert alert-danger col-md-12">
+                @Html.ValidationMessage("errorMessage")
+                <button type="button" class="close" data-dismiss="alert" aria-label="Закрити"><span aria-hidden="true">&times;</span></button>
+            </div>
+        }
+        <div class="form-group">@Html.Label("Електронна адреса:", new {@class = "control-label col-md-offset-2 col-md-3"})
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", placeholder = "Введіть e-mail"})
+                @Html.ValidationMessageFor(u => u.UserName,"",new {@class="validation-error"})
+            </div>
+        </div>
+        <div class="form-group">@Html.Label("Пароль:", new {@class = "control-label col-md-offset-2 col-md-3"})
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.Password, new {type = "password", @class = "form-control", placeholder = "Введіть пароль"})
+                @Html.ValidationMessageFor(u => u.Password,"",new {@class="validation-error"})
+            </div></div>
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-3">
+                <button type="submit" class="btn btn-default">Ввійти</button>
+            </div>
+        </div>
+            
+    }

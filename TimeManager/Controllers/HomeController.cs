@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TimeManager.Context;
 using TimeManager.Models;
 
 namespace TimeManager.Controllers
@@ -12,15 +13,13 @@ namespace TimeManager.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            var users = MainRepository.Users;
-
-            var model = new TimeManagerModel();
-            return View(model);
+            return View();
         }
 
         [HttpPost]
         public ActionResult Index(NewCase newCase)
         {
+            /*
             if (ModelState.IsValid)
             {
                 var caseItem = new Case()
@@ -49,19 +48,13 @@ namespace TimeManager.Controllers
             var model1 = new TimeManagerModel();
             model1.NewCase = newCase;
             return View(model1);
+             */
+            return View();
         }
 
         [HttpGet]
         public ActionResult Users()
         {
-            MainRepository.AddUser(new User()
-            {
-                Name = "User",
-                AboutMe = "About Me",
-                Email = "almark.ua@gmail.com",
-                Password = "password",
-                UserImage = "mimi.jpg"
-            });
             return View(MainRepository.Users);
         }
     }

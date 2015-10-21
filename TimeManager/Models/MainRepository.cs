@@ -1,57 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using TimeManager.App_Start;
+using TimeManager.Context;
 
 namespace TimeManager.Models
 {
-    public class MainRepository : DbContext, IRepository
+    public class MainRepository:IRepository
     {
-        public DbSet<User> UsersDbSet { get; set; }
-
-        public DbSet<PublicCategory> PublicCategoriesDbSet { get; set; }
+        private readonly MainContext _context;
 
         public MainRepository()
         {
-            Console.WriteLine("MainRepository creating");
+            _context = new MainContext();
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>()
-                .HasMany(user => user.PublicCategories)
-                .WithMany(category => category.Users)
-                .Map(u => u.MapLeftKey("UserId").MapRightKey("CategotyId").ToTable("UsersPublicCategories"));
+        public IList<User> Users {
+            get { return _context.Users.ToList();  }
         }
-
-        public IList<User> Users
-        {
-            get { return UsersDbSet.ToList(); }
-        }
-
         public IList<PublicCategory> PublicCategories {
-            get { return PublicCategories.ToList();}
+            get { return _context.PublicCategories.ToList(); }
         }
-
-        public void AddUser(User newUser)
-        {
-            UsersDbSet.Add(newUser);
-            SaveChanges();
-        }
-
-        public void RemoveUser(User user)
-        {
-            UsersDbSet.Remove(user);
-            SaveChanges();
-        }
-
-        public void AddPublicCategory(PublicCategory category)
-        {
-            PublicCategoriesDbSet.Add(category);
-            SaveChanges();
-        }
-
     }
 }

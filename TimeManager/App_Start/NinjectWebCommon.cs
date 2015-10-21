@@ -1,4 +1,6 @@
-﻿using TimeManager.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using TimeManager.Context;
+using TimeManager.Models;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TimeManager.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TimeManager.App_Start.NinjectWebCommon), "Stop")]
