@@ -11,12 +11,7 @@ namespace TimeManager.Context
 {
     public class MainContext : IdentityDbContext<User>
     {
-        public IList<PublicCategory> PublicCategories { get; set; }
-
-        public MainContext() : base("DefaultConnection")
-        {
-
-        }
+        public MainContext() : base("DefaultConnection") { }
 
         public static MainContext Create()
         {
@@ -36,10 +31,6 @@ namespace TimeManager.Context
             modelBuilder.Entity<Role>().HasKey<string>(r => r.Id).ToTable("AspNetRoles");
             modelBuilder.Entity<User>().HasMany<UserRole>((User u) => u.UserRoles);
             modelBuilder.Entity<UserRole>().HasKey(r => new { UserId = r.UserId, RoleId = r.RoleId }).ToTable("AspNetUserRoles");
-            modelBuilder.Entity<User>()
-                .HasMany(user => user.PublicCategories)
-                .WithMany(category => category.Users)
-                .Map(u => u.MapLeftKey("UserId").MapRightKey("CategoryId").ToTable("UsersPublicCategories"));
         }
 
         public bool CreateRole(RoleManager<Role> roleManager, string name, string description = "")

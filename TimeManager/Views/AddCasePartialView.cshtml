@@ -1,7 +1,6 @@
 ﻿@using System.Web.Services.Configuration
 @using ModelBinderDictionary = System.Web.ModelBinding.ModelBinderDictionary
-@model TimeManager.Models.TimeManagerModel
-@{var NewCase = Model.NewCase;}
+@{var NewCase = new TimeManager.Models.NewCase();}
 <div class="well add-case-well">
     <div class="panel-heading well-header">
         Додати справу
@@ -40,6 +39,7 @@
                 <div class="input-group">
                     <select class="form-control" name="CategoryName" id="category" title="Оберіть категорію" value="Категорія">
                         <option value="" selected disabled style='display: none;'>&lt;Категорія&gt;</option>
+                    @*
                         @foreach (var category in Model.Categories)
                         {
                             if (category.Name == Model.NewCase.CategoryName)
@@ -51,6 +51,7 @@
                                 <option>@category.Name</option>
                             }
                         }
+                        *@
                     </select>
                     <span class="input-group-btn">
                         <button id="add-category-button" class="btn btn-default attached-button" type="button" onclick="showdiv('#new-category'); hidediv('#category-group');">+</button>
@@ -69,6 +70,7 @@
             <div class="form-group add-case-group">
                 <select class="form-control" id="priority" Name="Priority" title="Chose priority">
                     <option value="" selected disabled style='display: none;'>&lt;Пріоритет&gt;</option>
+                @*
                     @foreach (var priority in Model.Priorities)
                     {
                         if (priority == Model.NewCase.Priority)
@@ -80,6 +82,7 @@
                             <option>@priority</option>
                         }
                     }
+                    *@
                 </select>
             </div>
             <div class="form-group add-case-group">

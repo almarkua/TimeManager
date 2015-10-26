@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using TimeManager.Context;
+using TimeManager.Controllers;
 using TimeManager.Models;
 
 namespace TimeManager.App_Start
@@ -38,6 +39,7 @@ namespace TimeManager.App_Start
             {
                 manager.UserTokenProvider = new DataProtectorTokenProvider<User>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+            manager.EmailService = new EmailService();
             return manager;
         }
         

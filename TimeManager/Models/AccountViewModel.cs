@@ -13,8 +13,10 @@ namespace TimeManager.Models
     {
         [Required(ErrorMessage = "Поле повинно бути заповнене!")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некоректний e-mail")]
+        [DisplayName("Електронна адреса")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Поле повинно бути заповнене!")]
+        [DisplayName("Пароль")]
         public string Password { get; set; }
     }
 
@@ -44,4 +46,32 @@ namespace TimeManager.Models
         public string RePassword { get; set; }
     }
 
+    public class ForgotPasswordViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Електронна адреса")]
+        public string Email { get; set; }
+    }
+
+    public class ResetPasswordViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Електронна адреса")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Підтвердження пароля")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        public string Code { get; set; }
+    }
 }

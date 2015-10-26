@@ -23,3 +23,32 @@ $('tr > td > div > label').click(function () {
 		checkbox.parents('tr').css('text-decoration','none');	
 	}
 });
+
+$("#SignInButton").on('click', function(jQueryEvent) {
+    jQueryEvent.preventDefault();
+    $.post("../Account/SignInAjax", { UserName: $('#UserName').val(), Password: $('#Password').val() }, function(data) {
+        var model = $.parseJSON(data);
+        $("#CustomErrors").empty();
+        $("#UserNameError").empty();
+        $("#PasswordError").empty();
+        if (!model.CustomErrors && !model.UserName.Errors.length && !model.Password.Errors.length) {
+            location.reload();
+        }
+        if (model.CustomErrors) {
+            $.each(model.CustomErrors.Errors, function (index, value) {
+                $("#CustomErrors").append("<li>"+value.ErrorMessage+"</li>");
+            });
+        }
+        if (model.UserName.Errors.length > 0) {
+            $.each(model.UserName.Errors, function (index, value) {
+                $("#UserNameError").append(value.ErrorMessage);
+            });
+        }
+        if (model.Password.Errors.length > 0) {
+            $.each(model.Password.Errors, function (index, value) {
+                $("#PasswordError").append(value.ErrorMessage);
+            });
+        }
+        console.log(jQuery.parseJSON(data));
+    });
+});

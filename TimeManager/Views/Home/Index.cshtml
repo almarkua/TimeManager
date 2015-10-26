@@ -1,7 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model TimeManager.Models.TimeManagerModel
 
 <div class="container">
     <div class="row">
@@ -16,33 +15,6 @@
                     <th>Пріоритет</th>
                     <th>Готовність</th>
                 </tr>
-                
-                @for (int i = 0; i < @Model.Cases.Count; i++)
-                {
-                    var item = @Model.Cases[i];
-                    <tr @if (i % 2 != 0) { <text> class="info" </text>  }>
-                        <td>@(i + 1)</td>
-                        <td>@item.ShortDescription</td>
-                        <td>@item.EndDate.ToShortDateString()</td>
-                        <td>@item.Category.Name</td>
-                        <td>@item.Priority</td>
-                        <td>
-                            <div class="checkbox">
-                                <label>
-                                    @if (item.IsDone)
-                                    {
-                                        <input type="checkbox" checked="checked">
-                                    }
-                                    else
-                                    {
-                                        <input type="checkbox">
-                                    }
-                                    Виконана
-                                </label>
-                            </div>
-                        </td>
-                    </tr>
-                }
             </table>
 
             <h4>Майбутні справи:</h4>
@@ -86,7 +58,7 @@
         </div>
         <div class="col-md-3">
             @Html.Partial("~/Views/UserLoginPartialView.cshtml")
-            @Html.Partial("~/Views/AddCasePartialView.cshtml", @Model)
+            @Html.Partial("~/Views/AddCasePartialView.cshtml")
         </div>
     </div>
 </div>
