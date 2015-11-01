@@ -17,8 +17,7 @@ namespace TimeManager.Models
         public string UserImage { get; set; }
         public string AboutMe { get; set; }
 
-        public virtual IList<Category> PrivateCategories { get; set; }
-        public virtual IList<PublicCategory> PublicCategories { get; set; }
+        public virtual IList<Category> Categories { get; set; }
         public IList<UserRole> UserRoles { get; set; }
 
         public User()
@@ -29,6 +28,11 @@ namespace TimeManager.Models
         public User(string userName):this()
         {
             UserName = userName;
+        }
+
+        public void Initialize()
+        {
+            Categories = new List<Category>() {new Category(){Description = "Заняття спорту", Name="Спорт"}};
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)

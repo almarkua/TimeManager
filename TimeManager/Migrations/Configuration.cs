@@ -9,8 +9,7 @@ namespace TimeManager.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "TimeManager.Context.MainContext";
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(TimeManager.Context.MainContext context)

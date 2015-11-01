@@ -104,9 +104,9 @@ var
 	rmsPrefix = /^-ms-/,
 	rdashAlpha = /-([\da-z])/gi,
 
-	// Used by jQuery.camelCase as callback to replace()
-	fcamelCase = function( all, letter ) {
-		return letter.toUpperCase();
+	// Used by jQuery.camelTodo as callback to replace()
+	fcamelTodo = function( all, letter ) {
+		return letter.toUpperTodo();
 	},
 
 	// The ready event handler
@@ -628,14 +628,14 @@ jQuery.extend({
 		}
 	},
 
-	// Convert dashed to camelCase; used by the css and data modules
+	// Convert dashed to camelTodo; used by the css and data modules
 	// Microsoft forgot to hump their vendor prefix (#9572)
-	camelCase: function( string ) {
-		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
+	camelTodo: function( string ) {
+		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelTodo );
 	},
 
 	nodeName: function( elem, name ) {
-		return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+		return elem.nodeName && elem.nodeName.toLowerTodo() === name.toLowerTodo();
 	},
 
 	// args is for internal usage only
@@ -933,7 +933,7 @@ jQuery.ready.promise = function( obj ) {
 
 		readyList = jQuery.Deferred();
 
-		// Catch cases where $(document).ready() is called after the browser event has already occurred.
+		// Catch todos where $(document).ready() is called after the browser event has already occurred.
 		// we once tried to use readyState "interactive" here, but it caused issues like the one
 		// discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
 		if ( document.readyState === "complete" ) {
@@ -991,7 +991,7 @@ jQuery.ready.promise = function( obj ) {
 
 // Populate the class2type map
 jQuery.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
-	class2type[ "[object " + name + "]" ] = name.toLowerCase();
+	class2type[ "[object " + name + "]" ] = name.toLowerTodo();
 });
 
 function isArraylike( obj ) {
@@ -1265,7 +1265,7 @@ function Sizzle( selector, context, results, seed ) {
 			// We can work around this by specifying an extra ID on the root
 			// and working up from there (Thanks to Andrew Dupont for the technique)
 			// IE 8 doesn't work on object elements
-			if ( nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
+			if ( nodeType === 1 && context.nodeName.toLowerTodo() !== "object" ) {
 				groups = tokenize( selector );
 
 				if ( (old = context.getAttribute("id")) ) {
@@ -1402,7 +1402,7 @@ function siblingCheck( a, b ) {
  */
 function createInputPseudo( type ) {
 	return function( elem ) {
-		var name = elem.nodeName.toLowerCase();
+		var name = elem.nodeName.toLowerTodo();
 		return name === "input" && elem.type === type;
 	};
 }
@@ -1413,7 +1413,7 @@ function createInputPseudo( type ) {
  */
 function createButtonPseudo( type ) {
 	return function( elem ) {
-		var name = elem.nodeName.toLowerCase();
+		var name = elem.nodeName.toLowerTodo();
 		return (name === "input" || name === "button") && elem.type === type;
 	};
 }
@@ -1445,7 +1445,7 @@ function createPositionalPseudo( fn ) {
  * @param {Element|Object} elem An element or a document
  */
 isXML = Sizzle.isXML = function( elem ) {
-	// documentElement is verified for cases where it doesn't yet exist
+	// documentElement is verified for todos where it doesn't yet exist
 	// (such as loading iframes in IE - #4833)
 	var documentElement = elem && (elem.ownerDocument || elem).documentElement;
 	return documentElement ? documentElement.nodeName !== "HTML" : false;
@@ -1845,9 +1845,9 @@ Sizzle.attr = function( elem, name ) {
 		setDocument( elem );
 	}
 
-	var fn = Expr.attrHandle[ name.toLowerCase() ],
+	var fn = Expr.attrHandle[ name.toLowerTodo() ],
 		// Don't get fooled by Object.prototype properties (jQuery #13807)
-		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
+		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerTodo() ) ?
 			fn( elem, name, !documentIsHTML ) :
 			undefined;
 
@@ -1973,7 +1973,7 @@ Expr = Sizzle.selectors = {
 				7 sign of y-component
 				8 y of y-component
 			*/
-			match[1] = match[1].toLowerCase();
+			match[1] = match[1].toLowerTodo();
 
 			if ( match[1].slice( 0, 3 ) === "nth" ) {
 				// nth-* requires argument
@@ -2026,11 +2026,11 @@ Expr = Sizzle.selectors = {
 	filter: {
 
 		"TAG": function( nodeNameSelector ) {
-			var nodeName = nodeNameSelector.replace( runescape, funescape ).toLowerCase();
+			var nodeName = nodeNameSelector.replace( runescape, funescape ).toLowerTodo();
 			return nodeNameSelector === "*" ?
 				function() { return true; } :
 				function( elem ) {
-					return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
+					return elem.nodeName && elem.nodeName.toLowerTodo() === nodeName;
 				};
 		},
 
@@ -2084,7 +2084,7 @@ Expr = Sizzle.selectors = {
 					var cache, outerCache, node, diff, nodeIndex, start,
 						dir = simple !== forward ? "nextSibling" : "previousSibling",
 						parent = elem.parentNode,
-						name = ofType && elem.nodeName.toLowerCase(),
+						name = ofType && elem.nodeName.toLowerTodo(),
 						useCache = !xml && !ofType;
 
 					if ( parent ) {
@@ -2094,7 +2094,7 @@ Expr = Sizzle.selectors = {
 							while ( dir ) {
 								node = elem;
 								while ( (node = node[ dir ]) ) {
-									if ( ofType ? node.nodeName.toLowerCase() === name : node.nodeType === 1 ) {
+									if ( ofType ? node.nodeName.toLowerTodo() === name : node.nodeType === 1 ) {
 										return false;
 									}
 								}
@@ -2137,7 +2137,7 @@ Expr = Sizzle.selectors = {
 							while ( (node = ++nodeIndex && node && node[ dir ] ||
 								(diff = nodeIndex = 0) || start.pop()) ) {
 
-								if ( ( ofType ? node.nodeName.toLowerCase() === name : node.nodeType === 1 ) && ++diff ) {
+								if ( ( ofType ? node.nodeName.toLowerTodo() === name : node.nodeType === 1 ) && ++diff ) {
 									// Cache the index of each encountered element
 									if ( useCache ) {
 										(node[ expando ] || (node[ expando ] = {}))[ type ] = [ dirruns, diff ];
@@ -2163,7 +2163,7 @@ Expr = Sizzle.selectors = {
 			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
 			// Remember that setFilters inherits from pseudos
 			var args,
-				fn = Expr.pseudos[ pseudo ] || Expr.setFilters[ pseudo.toLowerCase() ] ||
+				fn = Expr.pseudos[ pseudo ] || Expr.setFilters[ pseudo.toLowerTodo() ] ||
 					Sizzle.error( "unsupported pseudo: " + pseudo );
 
 			// The user may use createPseudo to indicate that
@@ -2176,7 +2176,7 @@ Expr = Sizzle.selectors = {
 			// But maintain support for old signatures
 			if ( fn.length > 1 ) {
 				args = [ pseudo, pseudo, "", argument ];
-				return Expr.setFilters.hasOwnProperty( pseudo.toLowerCase() ) ?
+				return Expr.setFilters.hasOwnProperty( pseudo.toLowerTodo() ) ?
 					markFunction(function( seed, matches ) {
 						var idx,
 							matched = fn( seed, argument ),
@@ -2249,7 +2249,7 @@ Expr = Sizzle.selectors = {
 			if ( !ridentifier.test(lang || "") ) {
 				Sizzle.error( "unsupported lang: " + lang );
 			}
-			lang = lang.replace( runescape, funescape ).toLowerCase();
+			lang = lang.replace( runescape, funescape ).toLowerTodo();
 			return function( elem ) {
 				var elemLang;
 				do {
@@ -2257,7 +2257,7 @@ Expr = Sizzle.selectors = {
 						elem.lang :
 						elem.getAttribute("xml:lang") || elem.getAttribute("lang")) ) {
 
-						elemLang = elemLang.toLowerCase();
+						elemLang = elemLang.toLowerTodo();
 						return elemLang === lang || elemLang.indexOf( lang + "-" ) === 0;
 					}
 				} while ( (elem = elem.parentNode) && elem.nodeType === 1 );
@@ -2291,7 +2291,7 @@ Expr = Sizzle.selectors = {
 		"checked": function( elem ) {
 			// In CSS3, :checked should return both checked and selected elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-			var nodeName = elem.nodeName.toLowerCase();
+			var nodeName = elem.nodeName.toLowerTodo();
 			return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
 		},
 
@@ -2334,7 +2334,7 @@ Expr = Sizzle.selectors = {
 		},
 
 		"button": function( elem ) {
-			var name = elem.nodeName.toLowerCase();
+			var name = elem.nodeName.toLowerTodo();
 			return name === "input" && elem.type === "button" || name === "button";
 		},
 
@@ -2342,9 +2342,9 @@ Expr = Sizzle.selectors = {
 			var attr;
 			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
 			// use getAttribute instead to test this case
-			return elem.nodeName.toLowerCase() === "input" &&
+			return elem.nodeName.toLowerTodo() === "input" &&
 				elem.type === "text" &&
-				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === elem.type );
+				( (attr = elem.getAttribute("type")) == null || attr.toLowerTodo() === elem.type );
 		},
 
 		// Position-in-collection
@@ -2948,7 +2948,7 @@ if ( !assert(function( div ) {
 }) ) {
 	addHandle( "type|href|height|width", function( elem, name, isXML ) {
 		if ( !isXML ) {
-			return elem.getAttribute( name, name.toLowerCase() === "type" ? 1 : 2 );
+			return elem.getAttribute( name, name.toLowerTodo() === "type" ? 1 : 2 );
 		}
 	});
 }
@@ -2961,7 +2961,7 @@ if ( !support.attributes || !assert(function( div ) {
 	return div.firstChild.getAttribute( "value" ) === "";
 }) ) {
 	addHandle( "value", function( elem, name, isXML ) {
-		if ( !isXML && elem.nodeName.toLowerCase() === "input" ) {
+		if ( !isXML && elem.nodeName.toLowerTodo() === "input" ) {
 			return elem.defaultValue;
 		}
 	});
@@ -2977,7 +2977,7 @@ if ( !assert(function( div ) {
 		if ( !isXML ) {
 			return (val = elem.getAttributeNode( name )) && val.specified ?
 				val.value :
-				elem[ name ] === true ? name.toLowerCase() : null;
+				elem[ name ] === true ? name.toLowerTodo() : null;
 		}
 	});
 }
@@ -3353,7 +3353,7 @@ jQuery.support = (function( support ) {
 
 	a.style.cssText = "top:1px;float:left;opacity:.5";
 
-	// Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
+	// Test setAttribute on camelTodo class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
 	support.getSetAttribute = div.className !== "t";
 
 	// IE strips leading whitespace when .innerHTML is used
@@ -3645,7 +3645,7 @@ function internalData( elem, name, data, pvt /* Internal Use Only */ ){
 	}
 
 	if ( data !== undefined ) {
-		thisCache[ jQuery.camelCase( name ) ] = data;
+		thisCache[ jQuery.camelTodo( name ) ] = data;
 	}
 
 	// Check for both converted-to-camel and non-converted data property names
@@ -3658,8 +3658,8 @@ function internalData( elem, name, data, pvt /* Internal Use Only */ ){
 		// Test for null|undefined property data
 		if ( ret == null ) {
 
-			// Try to find the camelCased property
-			ret = thisCache[ jQuery.camelCase( name ) ];
+			// Try to find the camelTodod property
+			ret = thisCache[ jQuery.camelTodo( name ) ];
 		}
 	} else {
 		ret = thisCache;
@@ -3701,7 +3701,7 @@ function internalRemoveData( elem, name, pvt ) {
 				} else {
 
 					// split the camel cased version by spaces unless a key with the spaces exists
-					name = jQuery.camelCase( name );
+					name = jQuery.camelTodo( name );
 					if ( name in thisCache ) {
 						name = [ name ];
 					} else {
@@ -3711,11 +3711,11 @@ function internalRemoveData( elem, name, pvt ) {
 			} else {
 				// If "name" is an array of keys...
 				// When data is initially created, via ("key", "val") signature,
-				// keys will be converted to camelCase.
+				// keys will be converted to camelTodo.
 				// Since there is no way to tell _how_ a key was added, remove
-				// both plain key and camelCase key. #12786
+				// both plain key and camelTodo key. #12786
 				// This will only penalize the array argument path.
-				name = name.concat( jQuery.map( name, jQuery.camelCase ) );
+				name = name.concat( jQuery.map( name, jQuery.camelTodo ) );
 			}
 
 			i = name.length;
@@ -3799,7 +3799,7 @@ jQuery.extend({
 			return false;
 		}
 
-		var noData = elem.nodeName && jQuery.noData[ elem.nodeName.toLowerCase() ];
+		var noData = elem.nodeName && jQuery.noData[ elem.nodeName.toLowerTodo() ];
 
 		// nodes accept data unless otherwise specified; rejection can be conditional
 		return !noData || noData !== true && elem.getAttribute("classid") === noData;
@@ -3827,7 +3827,7 @@ jQuery.fn.extend({
 						name = attrs[i].name;
 
 						if ( name.indexOf("data-") === 0 ) {
-							name = jQuery.camelCase( name.slice(5) );
+							name = jQuery.camelTodo( name.slice(5) );
 
 							dataAttr( elem, name, data[ name ] );
 						}
@@ -3870,7 +3870,7 @@ function dataAttr( elem, key, data ) {
 	// data from the HTML5 data-* attribute
 	if ( data === undefined && elem.nodeType === 1 ) {
 
-		var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+		var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerTodo();
 
 		data = elem.getAttribute( name );
 
@@ -4085,7 +4085,7 @@ jQuery.fn.extend({
 	removeProp: function( name ) {
 		name = jQuery.propFix[ name ] || name;
 		return this.each(function() {
-			// try/catch handles cases where IE balks (such as removing a property on window)
+			// try/catch handles todos where IE balks (such as removing a property on window)
 			try {
 				this[ name ] = undefined;
 				delete this[ name ];
@@ -4235,7 +4235,7 @@ jQuery.fn.extend({
 
 		if ( !arguments.length ) {
 			if ( elem ) {
-				hooks = jQuery.valHooks[ elem.type ] || jQuery.valHooks[ elem.nodeName.toLowerCase() ];
+				hooks = jQuery.valHooks[ elem.type ] || jQuery.valHooks[ elem.nodeName.toLowerTodo() ];
 
 				if ( hooks && "get" in hooks && (ret = hooks.get( elem, "value" )) !== undefined ) {
 					return ret;
@@ -4244,9 +4244,9 @@ jQuery.fn.extend({
 				ret = elem.value;
 
 				return typeof ret === "string" ?
-					// handle most common string cases
+					// handle most common string todos
 					ret.replace(rreturn, "") :
-					// handle cases where value is null/undef or number
+					// handle todos where value is null/undef or number
 					ret == null ? "" : ret;
 			}
 
@@ -4279,7 +4279,7 @@ jQuery.fn.extend({
 				});
 			}
 
-			hooks = jQuery.valHooks[ this.type ] || jQuery.valHooks[ this.nodeName.toLowerCase() ];
+			hooks = jQuery.valHooks[ this.type ] || jQuery.valHooks[ this.nodeName.toLowerTodo() ];
 
 			// If set returns undefined, fall back to normal setting
 			if ( !hooks || !("set" in hooks) || hooks.set( this, val, "value" ) === undefined ) {
@@ -4377,7 +4377,7 @@ jQuery.extend({
 		// All attributes are lowercase
 		// Grab necessary hook if one is defined
 		if ( nType !== 1 || !jQuery.isXMLDoc( elem ) ) {
-			name = name.toLowerCase();
+			name = name.toLowerTodo();
 			hooks = jQuery.attrHooks[ name ] ||
 				( jQuery.expr.match.bool.test( name ) ? boolHook : nodeHook );
 		}
@@ -4425,7 +4425,7 @@ jQuery.extend({
 					// Support: IE<9
 					// Also clear defaultChecked/defaultSelected (if appropriate)
 					} else {
-						elem[ jQuery.camelCase( "default-" + name ) ] =
+						elem[ jQuery.camelTodo( "default-" + name ) ] =
 							elem[ propName ] = false;
 					}
 
@@ -4520,7 +4520,7 @@ boolHook = {
 
 		// Use defaultChecked and defaultSelected for oldIE
 		} else {
-			elem[ jQuery.camelCase( "default-" + name ) ] = elem[ name ] = true;
+			elem[ jQuery.camelTodo( "default-" + name ) ] = elem[ name ] = true;
 		}
 
 		return name;
@@ -4538,7 +4538,7 @@ jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) 
 					(jQuery.expr.attrHandle[ name ] = undefined) !=
 						getter( elem, name, isXML ) ?
 
-						name.toLowerCase() :
+						name.toLowerTodo() :
 						null;
 			jQuery.expr.attrHandle[ name ] = fn;
 			return ret;
@@ -4546,8 +4546,8 @@ jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) 
 		function( elem, name, isXML ) {
 			return isXML ?
 				undefined :
-				elem[ jQuery.camelCase( "default-" + name ) ] ?
-					name.toLowerCase() :
+				elem[ jQuery.camelTodo( "default-" + name ) ] ?
+					name.toLowerTodo() :
 					null;
 		};
 });
@@ -4650,7 +4650,7 @@ if ( !jQuery.support.style ) {
 	jQuery.attrHooks.style = {
 		get: function( elem ) {
 			// Return undefined in the case of empty string
-			// Note: IE uppercases css property names, but if we were to .toLowerCase()
+			// Note: IE uppertodos css property names, but if we were to .toLowerTodo()
 			// .cssText, that would destroy case senstitivity in URL's, like in "background"
 			return elem.style.cssText || undefined;
 		},
@@ -4692,7 +4692,7 @@ jQuery.each([
 	"frameBorder",
 	"contentEditable"
 ], function() {
-	jQuery.propFix[ this.toLowerCase() ] = this;
+	jQuery.propFix[ this.toLowerTodo() ] = this;
 });
 
 // IE6/7 call enctype encoding
@@ -6164,7 +6164,7 @@ jQuery.fn.extend({
 			if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
 				( jQuery.support.htmlSerialize || !rnoshimcache.test( value )  ) &&
 				( jQuery.support.leadingWhitespace || !rleadingWhitespace.test( value ) ) &&
-				!wrapMap[ ( rtagName.exec( value ) || ["", ""] )[1].toLowerCase() ] ) {
+				!wrapMap[ ( rtagName.exec( value ) || ["", ""] )[1].toLowerTodo() ] ) {
 
 				value = value.replace( rxhtmlTag, "<$1></$2>" );
 
@@ -6378,7 +6378,7 @@ function fixCloneNodeIssues( src, dest ) {
 		return;
 	}
 
-	nodeName = dest.nodeName.toLowerCase();
+	nodeName = dest.nodeName.toLowerTodo();
 
 	// IE6-8 copies events bound via attachEvent when using cloneNode.
 	if ( !jQuery.support.noCloneEvent && dest[ jQuery.expando ] ) {
@@ -6577,7 +6577,7 @@ jQuery.extend({
 					tmp = tmp || safe.appendChild( context.createElement("div") );
 
 					// Deserialize a standard representation
-					tag = ( rtagName.exec( elem ) || ["", ""] )[1].toLowerCase();
+					tag = ( rtagName.exec( elem ) || ["", ""] )[1].toLowerTodo();
 					wrap = wrapMap[ tag ] || wrapMap._default;
 
 					tmp.innerHTML = wrap[1] + elem.replace( rxhtmlTag, "<$1></$2>" ) + wrap[2];
@@ -6710,7 +6710,7 @@ jQuery.extend({
 
 						// IE does not allow us to delete expando properties from nodes,
 						// nor does it have a removeAttribute function on Document nodes;
-						// we must handle all of these cases
+						// we must handle all of these todos
 						if ( deleteExpando ) {
 							delete elem[ internalKey ];
 
@@ -6836,7 +6836,7 @@ function vendorPropName( style, name ) {
 	}
 
 	// check for vendor prefixed names
-	var capName = name.charAt(0).toUpperCase() + name.slice(1),
+	var capName = name.charAt(0).toUpperTodo() + name.slice(1),
 		origName = name,
 		i = cssPrefixes.length;
 
@@ -7000,7 +7000,7 @@ jQuery.extend({
 
 		// Make sure that we're working with the right name
 		var ret, type, hooks,
-			origName = jQuery.camelCase( name ),
+			origName = jQuery.camelTodo( name ),
 			style = elem.style;
 
 		name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropName( style, origName ) );
@@ -7059,7 +7059,7 @@ jQuery.extend({
 
 	css: function( elem, name, extra, styles ) {
 		var num, val, hooks,
-			origName = jQuery.camelCase( name );
+			origName = jQuery.camelTodo( name );
 
 		// Make sure that we're working with the right name
 		name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropName( elem.style, origName ) );
@@ -7650,7 +7650,7 @@ try {
 }
 
 // Segment location into parts
-ajaxLocParts = rurl.exec( ajaxLocation.toLowerCase() ) || [];
+ajaxLocParts = rurl.exec( ajaxLocation.toLowerTodo() ) || [];
 
 // Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
 function addToPrefiltersOrTransports( structure ) {
@@ -7665,7 +7665,7 @@ function addToPrefiltersOrTransports( structure ) {
 
 		var dataType,
 			i = 0,
-			dataTypes = dataTypeExpression.toLowerCase().match( core_rnotwhite ) || [];
+			dataTypes = dataTypeExpression.toLowerTodo().match( core_rnotwhite ) || [];
 
 		if ( jQuery.isFunction( func ) ) {
 			// For each dataType in the dataTypeExpression
@@ -7944,10 +7944,10 @@ jQuery.extend({
 						if ( !responseHeaders ) {
 							responseHeaders = {};
 							while ( (match = rheaders.exec( responseHeadersString )) ) {
-								responseHeaders[ match[1].toLowerCase() ] = match[ 2 ];
+								responseHeaders[ match[1].toLowerTodo() ] = match[ 2 ];
 							}
 						}
-						match = responseHeaders[ key.toLowerCase() ];
+						match = responseHeaders[ key.toLowerTodo() ];
 					}
 					return match == null ? null : match;
 				},
@@ -7959,7 +7959,7 @@ jQuery.extend({
 
 				// Caches the header
 				setRequestHeader: function( name, value ) {
-					var lname = name.toLowerCase();
+					var lname = name.toLowerTodo();
 					if ( !state ) {
 						name = requestHeadersNames[ lname ] = requestHeadersNames[ lname ] || name;
 						requestHeaders[ name ] = value;
@@ -8018,11 +8018,11 @@ jQuery.extend({
 		s.type = options.method || options.type || s.method || s.type;
 
 		// Extract dataTypes list
-		s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerCase().match( core_rnotwhite ) || [""];
+		s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerTodo().match( core_rnotwhite ) || [""];
 
 		// A cross-domain request is in order when we have a protocol:host:port mismatch
 		if ( s.crossDomain == null ) {
-			parts = rurl.exec( s.url.toLowerCase() );
+			parts = rurl.exec( s.url.toLowerTodo() );
 			s.crossDomain = !!( parts &&
 				( parts[ 1 ] !== ajaxLocParts[ 1 ] || parts[ 2 ] !== ajaxLocParts[ 2 ] ||
 					( parts[ 3 ] || ( parts[ 1 ] === "http:" ? "80" : "443" ) ) !==
@@ -8052,7 +8052,7 @@ jQuery.extend({
 		}
 
 		// Uppercase the type
-		s.type = s.type.toUpperCase();
+		s.type = s.type.toUpperTodo();
 
 		// Determine if request has content
 		s.hasContent = !rnoContent.test( s.type );
@@ -8371,7 +8371,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 	// Create converters map with lowercased keys
 	if ( dataTypes[ 1 ] ) {
 		for ( conv in s.converters ) {
-			converters[ conv.toLowerCase() ] = s.converters[ conv ];
+			converters[ conv.toLowerTodo() ] = s.converters[ conv ];
 		}
 	}
 
@@ -9010,9 +9010,9 @@ function Animation( elem, properties, options ) {
 function propFilter( props, specialEasing ) {
 	var index, name, easing, value, hooks;
 
-	// camelCase, specialEasing and expand cssHook pass
+	// camelTodo, specialEasing and expand cssHook pass
 	for ( index in props ) {
-		name = jQuery.camelCase( index );
+		name = jQuery.camelTodo( index );
 		easing = specialEasing[ name ];
 		value = props[ index ];
 		if ( jQuery.isArray( value ) ) {

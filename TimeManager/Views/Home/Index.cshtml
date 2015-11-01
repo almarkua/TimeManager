@@ -1,64 +1,29 @@
-﻿@{
+﻿@using System.Net.Configuration
+@using TimeManager.Models
+@model TimeManager.Models.TodosModel
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-9 well">
-            <h4>Сьогоднішні справи:</h4>
-            <table class="table">
-                <tr style="background-color: #EED2EE;">
-                    <th>#</th>
-                    <th>Короткий опис</th>
-                    <th>Кінцева дата та час</th>
-                    <th>Категорія</th>
-                    <th>Пріоритет</th>
-                    <th>Готовність</th>
-                </tr>
-            </table>
-
-            <h4>Майбутні справи:</h4>
-            <table class="table">
-                <tr style="background-color: #EED2EE;">
-                    <th>#</th>
-                    <th>Короткий опис</th>
-                    <th>Кінцева дата та час</th>
-                    <th>Категорія</th>
-                    <th>Пріоритет</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Hello</td>
-                    <td>12.12.15</td>
-                    <td>12323</td>
-                    <td>1</td>
-                </tr>
-                <tr class="info">
-                    <td>2</td>
-                    <td>Hello</td>
-                    <td>12.12.15</td>
-                    <td>12323</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Hello</td>
-                    <td>12.12.15</td>
-                    <td>12323</td>
-                    <td>3</td>
-                </tr>
-                <tr class="info">
-                    <td>4</td>
-                    <td>Hello</td>
-                    <td>12.12.15</td>
-                    <td>12323</td>
-                    <td>4</td>
-                </tr>
-            </table>
+            <h2>Головна сторінка</h2>
+            <hr>
+            <h4>Головні можливості сайта</h4>
+            <img class="img-responsive img-center" src="~/Content/images/1.png" />
+            <img class="img-responsive img-center" src="~/Content/images/2.png" />
+            <img class="img-responsive img-center" src="~/Content/images/3.png" />
+            <img class="img-responsive img-center" src="~/Content/images/4.png" />
+            <img class="img-responsive img-center" src="~/Content/images/5.png" />
+            <img class="img-responsive img-center" src="~/Content/images/6.png" />
         </div>
         <div class="col-md-3">
-            @Html.Partial("~/Views/UserLoginPartialView.cshtml")
-            @Html.Partial("~/Views/AddCasePartialView.cshtml")
+            @Html.Partial("~/Views/UserLoginPartialView.cshtml",new LoginViewModel())
+            @if (ViewBag.IsAuthorized)
+            {
+                @Html.Partial("~/Views/AddTodoPartialView.cshtml", new AddTodoAjaxViewModel())
+            }
         </div>
     </div>
 </div>

@@ -1,0 +1,72 @@
+﻿@using TimeManager.Models
+@model TimeManager.Models.AddTodoAjaxViewModel
+<div class="well add-todo-well">
+    <div class="panel-heading well-header">
+        Додати справу
+    </div>
+    <div class="panel-body add-todo-body">
+        @using (Html.BeginForm("AddAjax", "Todos", FormMethod.Post, new {@class = "form-horizontal"}))
+        {
+            if (!Html.ValidationSummary().ToString().Contains("display:none"))
+             {
+                 <div class="alert alert-danger">
+                     @Html.ValidationSummary()
+                 </div>
+             }
+            <div class="form-group add-todo-group">
+                @Html.EditorFor(m => m.ShortDescription, new { htmlAttributes = new { @class = "form-control", placeholder = "Короткий опис" } })
+                <span class="text-danger" id="ShortDescriptionError"></span>
+            </div>
+            <div class="form-group add-todo-group">
+                @Html.EditorFor(m => m.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Детальний опис" } })
+                <span class="text-danger" id="DescriptionError"></span>
+            </div>
+            <div class="form-group add-todo-group">
+                <div class='input-group date' id='datetimepickerStart'>
+                    <input type="text" class="form-control" id="StartDate" name="StartDate" placeholder="Початкова дата та час"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <span class="text-danger" id="StartDateError"></span>
+            </div>
+            <div class="form-group add-todo-group">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m=>m.IsDone)
+                        @Html.DisplayNameFor(x => x.IsDone)
+                    </label>
+                </div>
+                <span class="text-danger" id="IsDoneError"></span>
+            </div>
+            <div class="form-group add-todo-group">
+                <div class='input-group date' id='datetimepickerEnd'>
+                    <input type="text" class="form-control" id="EndDate" name="EndDate" placeholder="Кінцева дата та час" disabled/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <span class="text-danger" id="EndDateError"></span>
+            </div>
+            <div class="form-group add-todo-group" id="category-group">
+                <select class="form-control" name="CategoryName" id="CategoryName" title="Оберіть категорію">
+                    <option value="" selected disabled style='display: none;'>&lt;Категорія&gt;</option>
+                </select>
+                <span class="text-danger" id="CategoryError"></span>
+            </div>
+            <div class="form-group add-todo-group">
+                <select class="form-control" id="Priority" name="Priority" title="Chose priority">
+                    <option value="" selected disabled style='display: none;'>&lt;Пріоритет&gt;</option>
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+                <span class="text-danger" id="PriorityError"></span>
+            </div>
+            <div class="form-group add-todo-group">
+                <button id="AddTodoButton" class="btn btn-info form-control">Додати</button>
+            </div>
+        }
+    </div>
+</div>

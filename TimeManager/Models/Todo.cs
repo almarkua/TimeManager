@@ -3,9 +3,9 @@ using System.ComponentModel;
 
 namespace TimeManager.Models
 {
-    public class Case
+    public class Todo
     {
-        public int CaseId { get; set; }
+        public int TodoId { get; set; }
         public string ShortDescription { get; set; }
         public string Description { get; set; }
         public DateTime StartDate { get; set; }

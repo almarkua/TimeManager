@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
 namespace TimeManager.Models
 {
-    public class Category:ICategory
+    public class Category : IComparable<Category>
     {
         public int CategoryId { get; set; }
+        [DisplayName("Назва")]
         public string Name { get; set; }
+        [DisplayName("Опис")]
         public string Description { get; set; }
         
         public virtual User User { get; set; }
-        public virtual IList<Case> Cases { get; set; }    
+        public virtual IList<Todo> Todos { get; set; }    
         
-        public int CompareTo(ICategory other)
+        public int CompareTo(Category other)
         {
             if (other != null)
             {

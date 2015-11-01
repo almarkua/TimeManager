@@ -94,10 +94,12 @@ namespace TimeManager.Controllers
                 if (model.Password == model.RePassword)
                 {
                     var user = new User() { UserName = model.Email, Email = model.Email };
+                    user.Initialize();
                     IdentityResult result = UserManager.Create(user, model.Password);
                     if (result.Succeeded)
                     {
-                        SignIn(user, false);
+                        
+                        SignIn(user, true);
                         return RedirectToAction("Index", "Home");
                     }
                         foreach (var error in result.Errors)

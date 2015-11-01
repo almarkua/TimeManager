@@ -26,8 +26,8 @@
             </div>
         </form>
         <div class="panel-footer authorization-footer">
-            <a href="#">Реєстрація</a>
-            <a href="#" class="pull-right">Забули пароль?</a>
+            @Html.ActionLink("Реєстрація","Register","Account")
+            @Html.ActionLink("Забули пароль?", "ForgotPassword", "Account",null,new {@class = "pull-right"})
         </div>
     </div>
     <!--end authorization well-->
@@ -38,6 +38,7 @@ else
         <div class="panel-heading well-header">
             Користувач
         </div>
-        Вітаємо, <a href="#">Олександр</a>!
+        <div>Вітаємо, <a href="#">Олександр</a>!</div>
+        <div>@Html.ActionLink("Вийти", "SignOut", "Account")</div>
     </div>
 }

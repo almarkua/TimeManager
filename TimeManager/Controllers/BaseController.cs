@@ -19,7 +19,9 @@ namespace TimeManager.Controllers
         public IRepository MainRepository { get; set; }
 
         public ApplicationUserManager UserManager { get; set; }
-        public User CurrentUser { get; set; }
+        public User CurrentUser {
+            get {  return MainRepository.Users.FirstOrDefault(us => us.UserName == HttpContext.GetOwinContext().Authentication.User.Identity.Name); }
+        }
 
         protected IAuthenticationManager AuthenticationManager
         {
@@ -35,11 +37,6 @@ namespace TimeManager.Controllers
             UserManager = context.GetUserManager<ApplicationUserManager>();
             
             ViewBag.IsAuthorized = context.Authentication.User.Identity.IsAuthenticated;
-            if (ViewBag.IsAuthorized)
-            {
-                CurrentUser =
-                    MainRepository.Users.FirstOrDefault(us => us.UserName == context.Authentication.User.Identity.Name);
-            }
         }
     }
 }

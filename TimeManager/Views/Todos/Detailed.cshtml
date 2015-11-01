@@ -1,0 +1,27 @@
+﻿@model TimeManager.Models.Todo
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>@Model.ShortDescription</h2>
+        <hr>
+        <dl class="dl-horizontal">
+            <dt>Детальний опис:</dt>
+            <dd>@Model.Description</dd>
+            <dt>Початкова дата:</dt>
+            <dd>@Model.StartDate</dd>
+            @if (Model.IsDone)
+            {
+                <dt>Кінцева дата:</dt>
+                <dd>@Model.EndDate</dd>
+            }
+            <dt>Категорія:</dt>
+            <dd>@Model.Category.Name</dd>
+            <dt>Пріоритет:</dt>
+            <dd>@Model.Priority</dd>
+        </dl>
+    </div>
+</div>

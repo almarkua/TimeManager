@@ -97,7 +97,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     cssomPrefixes = omPrefixes.split(' '),
 
-    domPrefixes = omPrefixes.toLowerCase().split(' '),
+    domPrefixes = omPrefixes.toLowerTodo().split(' '),
     /*>>domprefixes*/
 
     /*>>ns*/
@@ -348,7 +348,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // empty string.
 
     // Because the testing of the CSS property names (with "-", as
-    // opposed to the camelCase DOM properties) is non-portable and
+    // opposed to the camelTodo DOM properties) is non-portable and
     // non-standard but works in WebKit and IE (but not Gecko or Opera),
     // we explicitly reject properties with dashes so that authors
     // developing in WebKit or IE first don't end up with
@@ -400,7 +400,7 @@ window.Modernizr = (function( window, document, undefined ) {
      */
     function testPropsAll( prop, prefixed, elem ) {
 
-        var ucProp  = prop.charAt(0).toUpperCase() + prop.slice(1),
+        var ucProp  = prop.charAt(0).toUpperTodo() + prop.slice(1),
             props   = (prop + ' ' + cssomPrefixes.join(ucProp + ' ') + ucProp).split(' ');
 
         // did they call .prefixed('boxSizing') or are we just testing a prop?
@@ -968,7 +968,7 @@ window.Modernizr = (function( window, document, undefined ) {
             // run the test, throw the return value into the Modernizr,
             //   then based on that boolean, define an appropriate className
             //   and push it into an array of classes we'll join later.
-            featureName  = feature.toLowerCase();
+            featureName  = feature.toLowerTodo();
             Modernizr[featureName] = tests[feature]();
 
             classes.push((Modernizr[featureName] ? '' : 'no-') + featureName);
@@ -998,7 +998,7 @@ window.Modernizr = (function( window, document, undefined ) {
          }
        } else {
 
-         feature = feature.toLowerCase();
+         feature = feature.toLowerTodo();
 
          if ( Modernizr[feature] !== undefined ) {
            // we're going to quit if you're trying to overwrite an existing test
@@ -1349,7 +1349,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     /*>>testprop*/
     // Modernizr.testProp() investigates whether a given style property is recognized
-    // Note that the property names must be provided in the camelCase variant.
+    // Note that the property names must be provided in the camelTodo variant.
     // Modernizr.testProp('pointerEvents')
     Modernizr.testProp      = function(prop){
         return testProps([prop]);
@@ -1359,7 +1359,7 @@ window.Modernizr = (function( window, document, undefined ) {
     /*>>testallprops*/
     // Modernizr.testAllProps() investigates whether a given style property,
     //   or any of its vendor-prefixed variants, is recognized
-    // Note that the property names must be provided in the camelCase variant.
+    // Note that the property names must be provided in the camelTodo variant.
     // Modernizr.testAllProps('boxSizing')
     Modernizr.testAllProps  = testPropsAll;
     /*>>testallprops*/
@@ -1377,9 +1377,9 @@ window.Modernizr = (function( window, document, undefined ) {
     // Modernizr.prefixed('boxSizing') // 'MozBoxSizing'
 
     // Properties must be passed as dom-style camelcase, rather than `box-sizing` hypentated style.
-    // Return values will also be the camelCase variant, if you need to translate that to hypenated style use:
+    // Return values will also be the camelTodo variant, if you need to translate that to hypenated style use:
     //
-    //     str.replace(/([A-Z])/g, function(str,m1){ return '-' + m1.toLowerCase(); }).replace(/^ms-/,'-ms-');
+    //     str.replace(/([A-Z])/g, function(str,m1){ return '-' + m1.toLowerTodo(); }).replace(/^ms-/,'-ms-');
 
     // If you're trying to ascertain which transition end event to bind to, you might do something like...
     //

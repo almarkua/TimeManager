@@ -3,11 +3,11 @@
 	border: 1px solid #000;
 }
 
-.authorization-group, .add-case-group {
+.authorization-group, .add-todo-group {
 	margin: 5px;
 }
 
-.authorization-well, .add-case-well, .user-well {
+.authorization-well, .add-todo-well, .user-well {
 	padding: 5px;
 }
 
@@ -23,7 +23,7 @@
 	padding: 0px;
 }
 
-.add-case-body {
+.add-todo-body {
 	padding-top: 0;
 	padding-bottom: 0;
 }
@@ -67,4 +67,8 @@ td .checkbox {
 
 .nomargin {
     margin: 0 !important;
+}
+
+.img-responsive.img-center {
+  margin: 0 auto;
 }

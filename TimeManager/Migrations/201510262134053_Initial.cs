@@ -3,7 +3,7 @@ namespace TimeManager.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -64,6 +64,36 @@ namespace TimeManager.Migrations
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
+                "dbo.Categories",
+                c => new
+                    {
+                        CategoryId = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Description = c.String(),
+                        User_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.CategoryId)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .Index(t => t.User_Id);
+            
+            CreateTable(
+                "dbo.Todos",
+                c => new
+                    {
+                        TodoId = c.Int(nullable: false, identity: true),
+                        ShortDescription = c.String(),
+                        Description = c.String(),
+                        StartDate = c.DateTime(nullable: false),
+                        EndDate = c.DateTime(nullable: false),
+                        Priority = c.Int(nullable: false),
+                        IsDone = c.Boolean(nullable: false),
+                        Category_CategoryId = c.Int(),
+                    })
+                .PrimaryKey(t => t.TodoId)
+                .ForeignKey("dbo.Categories", t => t.Category_CategoryId)
+                .Index(t => t.Category_CategoryId);
+            
+            CreateTable(
                 "dbo.AspNetUserClaims",
                 c => new
                     {
@@ -88,96 +118,32 @@ namespace TimeManager.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
-            CreateTable(
-                "dbo.Categories",
-                c => new
-                    {
-                        CategoryId = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Description = c.String(),
-                        User_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.CategoryId)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.User_Id);
-            
-            CreateTable(
-                "dbo.Cases",
-                c => new
-                    {
-                        CaseId = c.Int(nullable: false, identity: true),
-                        ShortDescription = c.String(),
-                        Description = c.String(),
-                        StartDate = c.DateTime(nullable: false),
-                        EndDate = c.DateTime(nullable: false),
-                        Priority = c.Int(nullable: false),
-                        IsDone = c.Boolean(nullable: false),
-                        Category_CategoryId = c.Int(),
-                        PublicCategory_PublicCategoryId = c.Int(),
-                    })
-                .PrimaryKey(t => t.CaseId)
-                .ForeignKey("dbo.Categories", t => t.Category_CategoryId)
-                .ForeignKey("dbo.PublicCategories", t => t.PublicCategory_PublicCategoryId)
-                .Index(t => t.Category_CategoryId)
-                .Index(t => t.PublicCategory_PublicCategoryId);
-            
-            CreateTable(
-                "dbo.PublicCategories",
-                c => new
-                    {
-                        PublicCategoryId = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Description = c.String(),
-                    })
-                .PrimaryKey(t => t.PublicCategoryId);
-            
-            CreateTable(
-                "dbo.PublicCategoryUsers",
-                c => new
-                    {
-                        PublicCategory_PublicCategoryId = c.Int(nullable: false),
-                        User_Id = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.PublicCategory_PublicCategoryId, t.User_Id })
-                .ForeignKey("dbo.PublicCategories", t => t.PublicCategory_PublicCategoryId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
-                .Index(t => t.PublicCategory_PublicCategoryId)
-                .Index(t => t.User_Id);
-            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.PublicCategoryUsers", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.PublicCategoryUsers", "PublicCategory_PublicCategoryId", "dbo.PublicCategories");
-            DropForeignKey("dbo.Cases", "PublicCategory_PublicCategoryId", "dbo.PublicCategories");
-            DropForeignKey("dbo.Categories", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Cases", "Category_CategoryId", "dbo.Categories");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Categories", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Todos", "Category_CategoryId", "dbo.Categories");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUserRoles", "Role_Id", "dbo.AspNetRoles");
-            DropIndex("dbo.PublicCategoryUsers", new[] { "User_Id" });
-            DropIndex("dbo.PublicCategoryUsers", new[] { "PublicCategory_PublicCategoryId" });
-            DropIndex("dbo.Cases", new[] { "PublicCategory_PublicCategoryId" });
-            DropIndex("dbo.Cases", new[] { "Category_CategoryId" });
-            DropIndex("dbo.Categories", new[] { "User_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.Todos", new[] { "Category_CategoryId" });
+            DropIndex("dbo.Categories", new[] { "User_Id" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "User_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "Role_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropTable("dbo.PublicCategoryUsers");
-            DropTable("dbo.PublicCategories");
-            DropTable("dbo.Cases");
-            DropTable("dbo.Categories");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.Todos");
+            DropTable("dbo.Categories");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");

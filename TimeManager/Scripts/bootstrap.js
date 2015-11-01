@@ -583,7 +583,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
     if (!$.support.transition) return complete.call(this)
 
-    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
+    var scrollSize = $.camelTodo(['scroll', dimension].join('-'))
 
     this.$element
       .one($.support.transition.end, $.proxy(complete, this))

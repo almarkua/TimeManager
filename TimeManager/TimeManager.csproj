@@ -138,8 +138,19 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\1.png" />
+    <Content Include="Content\images\2.png" />
+    <Content Include="Content\images\3.png" />
+    <Content Include="Content\images\4.png" />
+    <Content Include="Content\images\5.png" />
+    <Content Include="Content\images\6.png" />
+    <Content Include="Content\images\add-icon.png" />
+    <Content Include="Content\images\detailed-icon.png" />
+    <Content Include="Content\images\edit-icon.png" />
+    <Content Include="Content\images\remove-icon.png" />
     <Content Include="Content\js\bootstrap-datetimepicker.min.js" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\moment-with-locales.min.js" />
     <Content Include="Content\js\timemanager.js" />
     <Content Include="Global.asax" />
@@ -147,14 +158,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\UserLoginPartialView.cshtml" />
-    <Content Include="Views\AddCasePartialView.cshtml" />
+    <Content Include="Views\AddTodoPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -163,34 +173,29 @@
     <Compile Include="Context\MainContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\TodosController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\EmailService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201510111739012_InitialCreate.cs" />
-    <Compile Include="Migrations\201510111739012_InitialCreate.Designer.cs">
-      <DependentUpon>201510111739012_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201510262134053_Initial.cs" />
+    <Compile Include="Migrations\201510262134053_Initial.Designer.cs">
+      <DependentUpon>201510262134053_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201510111744259_DataMigration.cs" />
-    <Compile Include="Migrations\201510111744259_DataMigration.Designer.cs">
-      <DependentUpon>201510111744259_DataMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510141052022_DataMigration1.cs" />
-    <Compile Include="Migrations\201510141052022_DataMigration1.Designer.cs">
-      <DependentUpon>201510141052022_DataMigration1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510171735005_DataMigration2.cs" />
-    <Compile Include="Migrations\201510171735005_DataMigration2.Designer.cs">
-      <DependentUpon>201510171735005_DataMigration2.cs</DependentUpon>
+    <Compile Include="Migrations\201510281311490_CaseMigration.cs" />
+    <Compile Include="Migrations\201510281311490_CaseMigration.Designer.cs">
+      <DependentUpon>201510281311490_CaseMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ICategory.cs" />
+    <Compile Include="Models\TodosModel.cs" />
+    <Compile Include="Models\TodoViewModel.cs" />
+    <Compile Include="Models\CategoryViewModels.cs" />
     <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\MainRepository.cs" />
-    <Compile Include="Models\NewCase.cs" />
-    <Compile Include="Models\Case.cs" />
+    <Compile Include="Models\Todo.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
@@ -216,8 +221,19 @@
     <None Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <None Include="Views\Home\Users.cshtml" />
-    <None Include="Views\PublicCategories\Index.cshtml" />
+    <Content Include="Views\Todos\Add.cshtml" />
+    <Content Include="Views\Todos\Edit.cshtml" />
+    <None Include="Views\Error\E404.cshtml" />
+    <None Include="Views\Error\Index.cshtml" />
+    <None Include="Views\Home\Contacts.cshtml" />
+    <None Include="Views\Todos\Index.cshtml" />
+    <None Include="Views\Todos\Detailed.cshtml" />
+    <Content Include="Views\Header.cshtml" />
+    <Content Include="Views\Footer.cshtml" />
+    <Content Include="Views\Categories\Add.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Shared\_ClearLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -228,20 +244,13 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Case\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510111739012_InitialCreate.resx">
-      <DependentUpon>201510111739012_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510262134053_Initial.resx">
+      <DependentUpon>201510262134053_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510111744259_DataMigration.resx">
-      <DependentUpon>201510111744259_DataMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510141052022_DataMigration1.resx">
-      <DependentUpon>201510141052022_DataMigration1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510171735005_DataMigration2.resx">
-      <DependentUpon>201510171735005_DataMigration2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510281311490_CaseMigration.resx">
+      <DependentUpon>201510281311490_CaseMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

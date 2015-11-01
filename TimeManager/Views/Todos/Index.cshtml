@@ -1,0 +1,73 @@
+﻿@using System.Net.Configuration
+@using TimeManager.Models
+@model TimeManager.Models.TodosModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 well">
+            @Html.ActionLink("Додати нову справу","Add")
+            <h4>Сьогоднішні справи:</h4>
+            <table class="table table-striped">
+                <tr style="background-color: #EED2EE;">
+                    <th>#</th>
+                    <th>Короткий опис</th>
+                    <th>Кінцева дата та час</th>
+                    <th>Категорія</th>
+                    <th>Пріоритет</th>
+                    <th>Готовність</th>
+                    <th></th>
+                </tr>
+                @for (int i = 0; i < Model.TodaysTodos.Count; i++)
+                {
+                    var todo = Model.TodaysTodos[i];
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@todo.ShortDescription</td>
+                        <td>@todo.EndDate</td>
+                        <td>@todo.Category.Name</td>
+                        <td>@todo.Priority</td>
+                        <td><input type="checkbox" checked="@todo.IsDone"/></td>
+                        <td>
+                            <a href="@Url.Action("Detailed", new {id = todo.TodoId})"><img src="~/Content/images/detailed-icon.png" alt="Детальніше"/></a>
+                            <a href="@Url.Action("Edit", new {id = todo.TodoId})"><img src="~/Content/images/edit-icon.png" alt="Редагувати"/></a>
+                            <a href="@Url.Action("Delete", new {id = todo.TodoId})"><img src="~/Content/images/remove-icon.png" alt="Видалити"/></a>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <h4>Майбутні справи:</h4>
+            <table class="table">
+                <tr style="background-color: #EED2EE;">
+                    <th>#</th>
+                    <th>Короткий опис</th>
+                    <th>Кінцева дата та час</th>
+                    <th>Категорія</th>
+                    <th>Пріоритет</th>
+                </tr>
+                @for (var i = 0; i < Model.FutureTodos.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Model.FutureTodos[i].ShortDescription</td>
+                        <td>@Model.FutureTodos[i].StartDate</td>
+                        <td>@Model.FutureTodos[i].Category.Name</td>
+                        <td>@Model.FutureTodos[i].Priority</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col-md-3">
+            @Html.Partial("~/Views/UserLoginPartialView.cshtml", new LoginViewModel())
+            @if (ViewBag.IsAuthorized)
+            {
+                @Html.Partial("~/Views/AddTodoPartialView.cshtml", new AddTodoAjaxViewModel())
+            }
+        </div>
+    </div>
+</div>
+
+
